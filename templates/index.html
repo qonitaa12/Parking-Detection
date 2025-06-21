@@ -1,0 +1,229 @@
+{% set is_stream = is_video or is_live %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Deteksi Parkir - YOLOv8</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f8;
+            color: #2c3e50;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .desc {
+            text-align: center;
+            font-size: 15px;
+            color: #7f8c8d;
+            max-width: 720px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .card {
+            background-color: #fafafa;
+            border: 1px solid #e1e1e1;
+            border-radius: 12px;
+            padding: 24px;
+            width: 300px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .card .desc {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .card input[type="file"] {
+            margin-bottom: 12px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            border: 2px dashed #ccc;
+            background-color: white;
+        }
+
+        .card button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .result img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 4px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .result p {
+            font-size: 18px;
+            margin: 6px 0;
+        }
+
+        .finish-btn {
+            margin-top: 20px;
+            padding: 10px 24px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .finish-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🅿️ Sistem Deteksi Slot Parkir</h1>
+</header>
+
+<div class="container">
+    <h2>Deteksi Parkir dengan YOLOv8</h2>
+    <p class="desc">
+        Aplikasi ini menggunakan teknologi <strong>YOLOv8</strong> untuk mendeteksi slot parkir yang kosong dan terisi. 
+        Anda dapat mengunggah gambar, video, atau menggunakan kamera secara langsung untuk melakukan deteksi secara real-time.
+    </p>
+
+    <div class="cards">
+        <!-- Gambar -->
+        <div class="card">
+            <h3>🖼️ Upload Gambar</h3>
+            <p class="desc">Unggah gambar parkiran, dan sistem akan menampilkan jumlah slot kosong dan terisi.</p>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="image" accept="image/*" required>
+                <button type="submit">Deteksi Gambar</button>
+            </form>
+        </div>
+
+        <!-- Video -->
+        <div class="card">
+            <h3>🎥 Upload Video</h3>
+            <p class="desc">Unggah rekaman video parkiran Anda untuk deteksi slot parkir secara streaming.</p>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="image" accept="video/*" required>
+                <button type="submit">Deteksi Video</button>
+            </form>
+        </div>
+
+        <!-- Live Camera -->
+        <div class="card">
+            <h3>📷 Live Kamera</h3>
+            <p class="desc">Gunakan kamera secara langsung untuk mendeteksi kondisi parkiran Anda secara real-time.</p>
+            <form method="POST">
+                <input type="hidden" name="live" value="1">
+                <button type="submit">Aktifkan Kamera</button>
+            </form>
+        </div>
+    </div>
+
+    {% if result %}
+    <div class="result">
+        <h3>📊 Hasil Deteksi Gambar</h3>
+        <img src="{{ url_for('static', filename='uploads/' + result.image) }}">
+        <p><strong>🚙 Occupied:</strong> {{ result.occupied }}</p>
+        <p><strong>🟢 Empty:</strong> {{ result.empty }}</p>
+    </div>
+    {% elif is_stream %}
+    <div class="result">
+        <h3>{{ '📡 Streaming Kamera' if is_live else '🎞️ Streaming Video' }}</h3>
+        <img src="{{ url_for('video_feed') }}" alt="Streaming">
+        <p><strong>🚙 Occupied:</strong> {{ count.occupied }}</p>
+        <p><strong>🟢 Empty:</strong> {{ count.empty }}</p>
+        <form method="POST">
+            <input type="hidden" name="finish" value="1">
+            <button class="finish-btn" type="submit">Selesai</button>
+        </form>
+        <p class="desc">Klik tombol "Selesai" untuk menghentikan streaming dan kembali ke menu utama.</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="footer">
+    &copy; 2025 - Sistem Deteksi Parkir | Dibuat oleh <strong>Qonita Milla</strong> 🌟
+</div>
+
+</body>
+</html>
