@@ -46,35 +46,4 @@ Sumber data berasal dari pengambilan gambar area parkir secara manual yang kemud
 
 ---
 
-## 🧰 Teknologi & Tools
-
-| Teknologi     | Keterangan                                       |
-|---------------|--------------------------------------------------|
-| Python        | Bahasa pemrograman utama                         |
-| YOLOv5        | Model deteksi objek ringan dan akurat            |
-| Roboflow      | Tool labeling data dan manajemen dataset         |
-| PyTorch       | Framework deep learning                          |
-| Google Colab  | Lingkungan pelatihan model (training pipeline)   |
-| OpenCV        | Prosesing gambar                                 |
-
-## 📅 Progress Proyek
-
-Berikut adalah perkembangan proyek yang telah dilakukan hingga saat ini:
-
-| Fase | Deskripsi                                   | Status      | Persentase |
-|-------|---------------------------------------------|-------------|------------|
-| 1     | Pengumpulan dan Pra-Pemrosesan Dataset Parkir | ✅ Selesai  | 100%       |
-|       | - Upload data ke Roboflow                     |             |            |
-|       | - Labeling (empty dan occupied)               |             |            |
-| 2     | Setup Environment dan Download Dataset Format YOLOv5 | ✅ Selesai  | 100%       |
-|       | - Clone repo YOLOv5                           |             |            |
-|       | - Install dependencies                        |             |            |
-|       | - Download dataset via Roboflow SDK           |             |            |
-| 3     | Training Model YOLOv5 dengan Dataset          | ✅ Selesai  | 100%       |
-|       | - Training selama 30 epoch                    |             |            |
-|       | - Menggunakan weights awal yolov5s.pt          |             |            |
-| 4     | Evaluasi Model dan Validasi                   | ✅ Selesai  | 100%       |
-|       | - Validasi hasil training (precision, recall, mAP) |          |            |
-| 5     | Deteksi Slot Parkir pada Test Set / Gambar    | ⏳ Dalam Proses | 0%         |
-|       | - Menggunakan model hasil training (best.pt)  |             |            |
 
