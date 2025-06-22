@@ -79,13 +79,14 @@
             margin-bottom: 16px;
         }
 
-        .card input[type="file"] {
+        .card select, .card input[type="file"] {
             margin-bottom: 12px;
             padding: 10px;
             width: 100%;
-            border-radius: 8px;
-            border: 2px dashed #ccc;
+            border-radius: 6px;
+            border: 1px solid #ccc;
             background-color: white;
+            font-size: 14px;
         }
 
         .card button {
@@ -161,18 +162,21 @@
 </header>
 
 <div class="container">
-    <h2>Deteksi Parkir dengan YOLOv8</h2>
+    <h2>Deteksi Parkir Menggunakan YOLOv8</h2>
     <p class="desc">
-        Aplikasi ini menggunakan teknologi <strong>YOLOv8</strong> untuk mendeteksi slot parkir yang kosong dan terisi. 
-        Anda dapat mengunggah gambar, video, atau menggunakan kamera secara langsung untuk melakukan deteksi secara real-time.
+        Sistem ini dapat mendeteksi slot parkir mobil maupun motor menggunakan gambar, video, maupun kamera secara langsung. Silakan pilih metode input dan jenis kendaraan yang ingin dideteksi.
     </p>
 
     <div class="cards">
         <!-- Gambar -->
         <div class="card">
             <h3>🖼️ Upload Gambar</h3>
-            <p class="desc">Unggah gambar parkiran, dan sistem akan menampilkan jumlah slot kosong dan terisi.</p>
+            <p class="desc">Deteksi parkiran dari gambar statis.</p>
             <form method="POST" enctype="multipart/form-data">
+                <select name="mode" required>
+                    <option value="mobil" {% if selected_mode == 'mobil' %}selected{% endif %}>🚗 Mobil</option>
+                    <option value="motor" {% if selected_mode == 'motor' %}selected{% endif %}>🏍️ Motor</option>
+                </select>
                 <input type="file" name="image" accept="image/*" required>
                 <button type="submit">Deteksi Gambar</button>
             </form>
@@ -181,18 +185,26 @@
         <!-- Video -->
         <div class="card">
             <h3>🎥 Upload Video</h3>
-            <p class="desc">Unggah rekaman video parkiran Anda untuk deteksi slot parkir secara streaming.</p>
+            <p class="desc">Deteksi slot parkir dari video.</p>
             <form method="POST" enctype="multipart/form-data">
+                <select name="mode" required>
+                    <option value="mobil" {% if selected_mode == 'mobil' %}selected{% endif %}>🚗 Mobil</option>
+                    <option value="motor" {% if selected_mode == 'motor' %}selected{% endif %}>🏍️ Motor</option>
+                </select>
                 <input type="file" name="image" accept="video/*" required>
                 <button type="submit">Deteksi Video</button>
             </form>
         </div>
 
-        <!-- Live Camera -->
+        <!-- Kamera Langsung -->
         <div class="card">
             <h3>📷 Live Kamera</h3>
-            <p class="desc">Gunakan kamera secara langsung untuk mendeteksi kondisi parkiran Anda secara real-time.</p>
+            <p class="desc">Deteksi real-time dari kamera langsung.</p>
             <form method="POST">
+                <select name="mode" required>
+                    <option value="mobil" {% if selected_mode == 'mobil' %}selected{% endif %}>🚗 Mobil</option>
+                    <option value="motor" {% if selected_mode == 'motor' %}selected{% endif %}>🏍️ Motor</option>
+                </select>
                 <input type="hidden" name="live" value="1">
                 <button type="submit">Aktifkan Kamera</button>
             </form>
@@ -202,7 +214,7 @@
     {% if result %}
     <div class="result">
         <h3>📊 Hasil Deteksi Gambar</h3>
-        <img src="{{ url_for('static', filename='uploads/' + result.image) }}">
+        <img src="{{ url_for('static', filename='uploads/' + result.image) }}" alt="Hasil Deteksi">
         <p><strong>🚙 Occupied:</strong> {{ result.occupied }}</p>
         <p><strong>🟢 Empty:</strong> {{ result.empty }}</p>
     </div>
@@ -216,7 +228,7 @@
             <input type="hidden" name="finish" value="1">
             <button class="finish-btn" type="submit">Selesai</button>
         </form>
-        <p class="desc">Klik tombol "Selesai" untuk menghentikan streaming dan kembali ke menu utama.</p>
+        <p class="desc">Klik tombol "Selesai" untuk kembali ke halaman utama.</p>
     </div>
     {% endif %}
 </div>
