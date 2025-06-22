@@ -1,6 +1,6 @@
-# 🅿️ Parking Spot Detector with YOLOv5
+# 🅿️ Parking Spot Detector with YOLOv8
 
-Proyek ini membangun sistem deteksi otomatis untuk mengenali **slot parkir kosong** dan **slot parkir terisi** dari citra kamera menggunakan algoritma deteksi objek YOLOv5 dan dataset yang telah dilabeli melalui Roboflow.
+Proyek ini membangun sistem deteksi otomatis untuk mengenali **slot parkir kosong** dan **slot parkir terisi** dari citra kamera menggunakan algoritma deteksi objek YOLOv8 dan dataset yang telah dilabeli melalui Roboflow.
 
 ---
 
@@ -10,14 +10,14 @@ Dengan meningkatnya mobilitas dan kepadatan kendaraan, pengelolaan area parkir m
 
 - Mendeteksi kondisi slot parkir (empty / occupied).
 - Memanfaatkan citra statis (gambar) sebagai sumber input.
-- Melatih model deteksi objek dengan performa tinggi menggunakan YOLOv5.
+- Melatih model deteksi objek dengan performa tinggi menggunakan YOLOv8.
 - Memberikan hasil evaluasi akurasi model untuk pengembangan lebih lanjut.
 
 ---
 
 ## 🎯 Tujuan
 
-- Membangun model YOLOv5 untuk mengenali slot parkir.
+- Membangun model YOLOv8 untuk mengenali slot parkir.
 - Melatih model berdasarkan dataset berlabel dari Roboflow.
 - Mengevaluasi performa model dalam mengenali area parkir.
 - Mempersiapkan model untuk integrasi sistem otomatis di masa depan.
