@@ -1,62 +1,52 @@
-# 🅿️ Sistem Deteksi Slot Parkir Menggunakan YOLOv8
+🅿️ Parking Slot Detection System Using YOLOv8
+This project develops an automated detection system to recognize empty and occupied parking slots from camera images using the YOLOv8 object detection algorithm and a dataset labeled via Roboflow.
 
-Proyek ini membangun sistem deteksi otomatis untuk mengenali **slot parkir kosong** dan **slot parkir terisi** dari citra kamera menggunakan algoritma deteksi objek YOLOv8 dan dataset yang telah dilabeli melalui Roboflow.
+📌 Project Description
+This application is a web-based parking detection system powered by the deep learning model YOLOv8. The system can detect vehicles from images, videos, and live camera feeds in real time.
 
----
+There are two types of detection:
 
-## 📌 Deskripsi Proyek
+Car Parking Detection
 
-Aplikasi ini adalah sistem deteksi parkir berbasis web yang memanfaatkan model deep learning **YOLOv8**. Sistem mampu mendeteksi kendaraan baik dari **gambar**, **video**, maupun **live kamera** secara real-time.
+Motorcycle Parking Detection
 
-Tersedia dua jenis deteksi:
-- **Deteksi Parkir Mobil**
-- **Deteksi Parkir Motor**
+Users can select the desired detection type before uploading an image/video or activating the live camera.
 
-Pengguna dapat memilih jenis deteksi yang diinginkan sebelum mengunggah gambar/video atau mengaktifkan kamera.
+🎯 Objectives
+Build a YOLOv8 model to recognize parking slots.
 
----
+Train the model using a labeled dataset from Roboflow.
 
-## 🎯 Tujuan
+Evaluate the model's performance in recognizing parking areas.
 
-- Membangun model YOLOv8 untuk mengenali slot parkir.
-- Melatih model berdasarkan dataset berlabel dari Roboflow.
-- Mengevaluasi performa model dalam mengenali area parkir.
-- Mempersiapkan model untuk integrasi sistem otomatis di masa depan.
+Prepare the model for integration into automated systems in the future.
 
----
-## 🎯 Fitur Utama
+🎯 Key Features
+✅ Upload images to detect parking slots
+✅ Upload videos for real-time streaming detection
+✅ Live camera detection
+✅ Choose detection model: Car or Motorcycle
+✅ Display vehicle count:
 
-✅ Upload gambar untuk mendeteksi slot parkir  
-✅ Upload video dan deteksi parkir secara streaming  
-✅ Deteksi langsung via live kamera  
-✅ Pilih model deteksi: **mobil** atau **motor**  
-✅ Tampilkan jumlah kendaraan:
-- Mobil: `Occupied` dan `Empty`
-- Motor: hanya `Occupied` (motor yang terdeteksi)
+Car: Occupied and Empty
 
-✅ Visualisasi bounding box hasil deteksi  
-✅ Antarmuka modern dan responsif
+Motorcycle: Occupied only (detected motorcycles)
 
-## 📂 Penjelasan Dataset
+✅ Visualize detection results with bounding boxes
+✅ Modern and responsive user interface
 
-**Dataset Mobil**
-Dataset dibuat melalui proses labeling menggunakan **Roboflow**, yang terdiri dari dua label utama:
+📂 Dataset Description
+Car Dataset
+The dataset was created by labeling images using Roboflow, consisting of two main labels:
 
-| Label        | Deskripsi                    |
-|--------------|------------------------------|
-| `empty`      | Slot parkir kosong           |
-| `occupied`   | Slot parkir yang sedang dipakai |
+Label	Description
+empty	Empty parking slot
+occupied	Parking slot currently in use
 
-**Dataset Motor**
-Dataset dibuat melalui proses labeling menggunakan **Roboflow**, yang terdiri dari satu label utama:
+Motorcycle Dataset
+This dataset was also labeled via Roboflow, with one main label:
 
-| Label        | Deskripsi                    |
-|--------------|------------------------------|
-| `occupied`   | Slot parkir yang sedang dipakai |
+Label	Description
+occupied	Parking slot currently in use
 
-
-Sumber data berasal dari pengambilan gambar area parkir secara manual yang kemudian dilabeli secara visual menggunakan bounding box untuk tiap slot parkir.
-
----
-
-
+The data was collected manually by capturing images of parking areas and visually labeling each slot using bounding boxes.
